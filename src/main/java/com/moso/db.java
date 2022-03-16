@@ -8,6 +8,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 
@@ -85,14 +86,15 @@ public class db {
         return id;
     }
 
-    public MongoCursor<Document> findAir() {
+    public MongoCursor<Document> findAir(String depat, String dest) {
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("alirline_data");
             MongoCollection<Document> collection = database.getCollection("airline");
             Bson projectionFields = Projections.fields(
                     Projections.include("fight_number", "Airline", "depature_time", "travel_time"),
                     Projections.excludeId());
-            MongoCursor<Document> cursor = collection.find(eq("Airline", "Jetblue"))
+            Bson filter = Filters.and(Filters.eq("Depature", depat), Filters.eq("Destination", dest));
+            MongoCursor<Document> cursor = collection.find(filter)
                     .projection(projectionFields)
                     .sort(Sorts.ascending("Airline")).iterator();
             return cursor;

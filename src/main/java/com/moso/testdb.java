@@ -1,12 +1,11 @@
 package com.moso;
 
-import static com.mongodb.client.model.Filters.eq;
-
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 
@@ -23,12 +22,14 @@ public class testdb {
             Bson projectionFields = Projections.fields(
                     Projections.include("fight_number", "Airline", "depature_time", "travel_time", "Price"),
                     Projections.excludeId());
-            MongoCursor<Document> cursor = collection.find(eq("Airline", "Jetblue"))
+            Bson filter = Filters.and(Filters.eq("Depature", "MAA"), Filters.eq("Destination", "IXM"));
+            MongoCursor<Document> cursor = collection.find(filter)
                     .projection(projectionFields)
                     .sort(Sorts.ascending("Airline")).iterator();
             try {
                 while (cursor.hasNext()) {
-                    System.out.println(cursor.next().get("Price"));
+                    Object c = cursor.next().get("Price");
+                    System.out.println();
                 }
             } finally {
                 cursor.close();

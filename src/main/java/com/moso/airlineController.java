@@ -84,7 +84,7 @@ public class airlineController {
     @FXML
     private void search() {
         db db1 = new db();
-        MongoCursor<Document> cursor = db1.findAir();
+        MongoCursor<Document> cursor = db1.findAir(depCity.getText(), desCity.getText());
         try {
             while (cursor.hasNext()) {
                 Document info = cursor.next();
