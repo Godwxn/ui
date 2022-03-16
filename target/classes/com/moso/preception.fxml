@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="prescribe" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.moso.preceptionController">
+   <children>
+      <Label layoutX="56.0" layoutY="64.0" text="Name" />
+      <Label layoutX="55.0" layoutY="105.0" text="Patient Id" />
+      <Label layoutX="52.0" layoutY="182.0" text="Perception" />
+      <Label layoutX="54.0" layoutY="145.0" text="Condition" />
+      <TextField id="name" fx:id="nameText" layoutX="142.0" layoutY="60.0" />
+      <TextField id="patient Id" fx:id="idText" layoutX="142.0" layoutY="101.0" />
+      <TextField id="condition" fx:id="condtionText" layoutX="142.0" layoutY="141.0" />
+      <TextArea id="precscribe" fx:id="precpText" layoutX="142.0" layoutY="182.0" prefHeight="134.0" prefWidth="250.0" />
+      <Label layoutX="336.0" layoutY="64.0" text="No.Days" />
+      <TextField id="days" fx:id="noofdaysText" layoutX="392.0" layoutY="60.0" prefHeight="26.0" prefWidth="64.0" />
+      <Button id="prescribe" fx:id="precBtn" layoutX="384.0" layoutY="338.0" mnemonicParsing="false" onAction="#precribe" text="Prescribe">
+         <graphic>
+            <FontAwesomeIconView glyphName="ARROW_UP" />
+         </graphic></Button>
+      <Button id="prescribe" fx:id="searchBtn" layoutX="486.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchToFind" text="Find">
+         <graphic>
+            <FontAwesomeIconView glyphName="SEARCH" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
