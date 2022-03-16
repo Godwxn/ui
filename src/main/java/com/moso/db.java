@@ -47,7 +47,7 @@ public class db {
 
     }
 
-    public void prescribe(String name, String id, String condition, String days, String prescri) {
+    public void prescribe(String name, String id, String condition, String days) {
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("patient_record");
             MongoCollection<Document> collection = database.getCollection("patient");
@@ -57,8 +57,7 @@ public class db {
                         .append("Name", name)
                         .append("id", id)
                         .append("condition", condition)
-                        .append("days", days)
-                        .append("prescribe", prescri));
+                        .append("days", days));
                 mongoClient.close();
             } catch (MongoException me) {
                 System.err.println(me);

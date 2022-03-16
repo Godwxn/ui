@@ -21,14 +21,14 @@ public class testdb {
             MongoDatabase database = mongoClient.getDatabase("alirline_data");
             MongoCollection<Document> collection = database.getCollection("airline");
             Bson projectionFields = Projections.fields(
-                    Projections.include("fight_number", "Airline", "depature_time", "travel_time"),
+                    Projections.include("fight_number", "Airline", "depature_time", "travel_time", "Price"),
                     Projections.excludeId());
             MongoCursor<Document> cursor = collection.find(eq("Airline", "Jetblue"))
                     .projection(projectionFields)
                     .sort(Sorts.ascending("Airline")).iterator();
             try {
                 while (cursor.hasNext()) {
-                    System.out.println(cursor.next().toJson());
+                    System.out.println(cursor.next().get("Price"));
                 }
             } finally {
                 cursor.close();

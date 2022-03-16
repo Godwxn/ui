@@ -8,15 +8,20 @@ import com.mongodb.client.MongoCursor;
 
 import org.bson.Document;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class airlineController {
 
@@ -60,8 +65,20 @@ public class airlineController {
     private TableColumn<airline, String> TravelTimecol;
 
     @FXML
-    private void switchToBook() throws IOException {
-        App.setRoot("booking");
+    private void switchToBook(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("booking.fxml"));
+        Parent tableViewParent = loader.load();
+
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        bookingControler controller = loader.getController();
+        controller.initData(flightTableView.getSelectionModel().getSelectedItem());
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
     }
 
     @FXML
@@ -71,7 +88,7 @@ public class airlineController {
         try {
             while (cursor.hasNext()) {
                 Document info = cursor.next();
-                flightTableView.setItems(getairline(info.getString("fight_number"), info.getString("Airline"),
+                flightTableView.getItems().add(getairline(info.getString("fight_number"), info.getString("Airline"),
                         info.getString("depature_time"),
                         info.getString("travel_time")));
             }
@@ -96,6 +113,7 @@ public class airlineController {
         assert flightTableView != null
                 : "fx:id=\"flightTableView\" was not injected: check your FXML file 'airline.fxml'.";
         assert searchBtn != null : "fx:id=\"searchBtn\" was not injected: check your FXML file 'airline.fxml'.";
+        flightTableView.setPlaceholder(new Label("No flight to display"));
         cabClass.getItems().addAll("Economy", "First Class", "Buissness Class");
         flightNameCol.setCellValueFactory(new PropertyValueFactory<airline, String>("Airline"));
         flightNumberCol.setCellValueFactory(new PropertyValueFactory<airline, String>("fight_number"));
@@ -103,10 +121,8 @@ public class airlineController {
         TravelTimecol.setCellValueFactory(new PropertyValueFactory<airline, String>("travel_time"));
     }
 
-    public ObservableList<airline> getairline(String fight_no, String Airline, String dep_time, String tra_time) {
-        ObservableList<airline> airline = FXCollections.observableArrayList();
-        airline.add(new airline(fight_no, Airline, dep_time, tra_time));
-        return airline;
+    public airline getairline(String fight_no, String Airline, String dep_time, String tra_time) {
+        return new airline(fight_no, Airline, dep_time, tra_time);
     }
 
 }

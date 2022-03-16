@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -80,6 +81,7 @@ public class findController {
         assert nameText != null : "fx:id=\"nameText\" was not injected: check your FXML file 'find.fxml'.";
         assert nightCol != null : "fx:id=\"nightCol\" was not injected: check your FXML file 'find.fxml'.";
         assert searchBtn != null : "fx:id=\"searchBtn\" was not injected: check your FXML file 'find.fxml'.";
+        medTableView.setPlaceholder(new Label("No Medicine record display"));
         medNameCol.setCellValueFactory(new PropertyValueFactory<med, String>("medName"));
 
     }
