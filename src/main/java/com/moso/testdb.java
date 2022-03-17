@@ -28,8 +28,9 @@ public class testdb {
                     .sort(Sorts.ascending("Airline")).iterator();
             try {
                 while (cursor.hasNext()) {
-                    Object c = cursor.next().get("Price");
-                    System.out.println();
+                    Document c = cursor.next();
+                    System.out.println(c.toJson());
+                    System.out.println(c.get("Price", Document.class).get("First"));
                 }
             } finally {
                 cursor.close();

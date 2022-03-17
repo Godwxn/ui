@@ -28,7 +28,7 @@ public class loginController {
         mail = email.getText();
         pas = pass.getText();
         if (db1.Login(mail, pas)) {
-            App.setRoot("airline");
+            App.setRoot("preception");
         }
     }
 
