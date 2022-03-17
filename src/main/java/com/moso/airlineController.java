@@ -63,6 +63,8 @@ public class airlineController {
 
     @FXML
     private TableColumn<airline, String> TravelTimecol;
+    @FXML
+    private TableColumn<airline, String> PriceCol;
 
     @FXML
     private void switchToBook(ActionEvent event) throws IOException {
@@ -94,7 +96,7 @@ public class airlineController {
                         info.getString("travel_time"));
                 flightTableView.getItems().add(getairline(info.getString("fight_number"), info.getString("Airline"),
                         info.getString("depature_time"),
-                        info.getString("travel_time")));
+                        info.getString("travel_time"), info.get("Price", Document.class).getString("First")));
             }
         } finally {
             cursor.close();
@@ -125,8 +127,8 @@ public class airlineController {
         TravelTimecol.setCellValueFactory(new PropertyValueFactory<airline, String>("travel_time"));
     }
 
-    public airline getairline(String fight_no, String Airline, String dep_time, String tra_time) {
-        return new airline(fight_no, Airline, dep_time, tra_time);
+    public airline getairline(String fight_no, String Airline, String dep_time, String tra_time, String Price) {
+        return new airline(fight_no, Airline, dep_time, tra_time, Price);
     }
 
 }
