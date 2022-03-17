@@ -11,6 +11,9 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -48,17 +51,21 @@ public class db {
 
     }
 
-    public void prescribe(String name, String id, String condition, String days) {
+    public void addPatients(String name, String id, String medicalhis, String phone_no, String age,
+            String Syntoms, String BloodGrp) {
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("patient_record");
             MongoCollection<Document> collection = database.getCollection("patient");
             try {
                 collection.insertOne(new Document()
                         .append("_id", new ObjectId())
-                        .append("Name", name)
+                        .append("name", name)
                         .append("id", id)
-                        .append("condition", condition)
-                        .append("days", days));
+                        .append("medical_histroy", medicalhis)
+                        .append("phone_no", phone_no)
+                        .append("age", age)
+                        .append("blood_grp", BloodGrp)
+                        .append("password", phone_no));
                 mongoClient.close();
             } catch (MongoException me) {
                 System.err.println(me);
@@ -68,6 +75,44 @@ public class db {
             System.out.println(me.getMessage());
         }
 
+    }
+
+    public void MakeAppointment(String id, String symptoms) {
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("patient_record");
+            MongoCollection<Document> collection = database.getCollection("patient");
+            Bson query = eq("id", id);
+            Bson updates = Updates.combine(Updates.set("symptoms", symptoms));
+            UpdateOptions options = new UpdateOptions().upsert(true);
+            try {
+                UpdateResult result = collection.updateOne(query, updates, options);
+                System.out.println("Modified document count: " + result.getModifiedCount());
+                System.out.println("Upserted id: " + result.getUpsertedId());
+            } catch (MongoException me) {
+                System.err.println("Unable to update due to an error: " + me);
+            }
+        } finally {
+        }
+
+    }
+
+    public Document getPatient(String id) {
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("patient_record");
+            // Bson projectionFields = Projections.fields(
+            // Projections.include("Nmae", "id", "Synptoms", "medical_histroy"),
+            // Projections.excludeId());
+            MongoCollection<Document> collection = database.getCollection("patient");
+            try {
+                Document patient = collection.find(eq("id", id)).first();
+                return patient;
+            } catch (MongoException me) {
+                System.err.println(me.getMessage());
+            }
+        } catch (MongoException me) {
+            System.err.println(me.getMessage());
+        }
+        return null;
     }
 
     public String findMed(String name, String id) {
@@ -91,7 +136,7 @@ public class db {
             MongoDatabase database = mongoClient.getDatabase("alirline_data");
             MongoCollection<Document> collection = database.getCollection("airline");
             Bson projectionFields = Projections.fields(
-                    Projections.include("fight_number", "Airline", "depature_time", "travel_time"),
+                    Projections.include("fight_number", "Airline", "depature_time", "travel_time", "Price"),
                     Projections.excludeId());
             Bson filter = Filters.and(Filters.eq("Depature", depat), Filters.eq("Destination", dest));
             MongoCursor<Document> cursor = collection.find(filter)

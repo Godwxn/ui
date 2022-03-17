@@ -88,6 +88,10 @@ public class airlineController {
         try {
             while (cursor.hasNext()) {
                 Document info = cursor.next();
+                System.out.println(info.get("Price", Document.class).getString("First"));
+                System.out.println(info.getString("fight_number") + info.getString("Airline") +
+                        info.getString("depature_time") +
+                        info.getString("travel_time"));
                 flightTableView.getItems().add(getairline(info.getString("fight_number"), info.getString("Airline"),
                         info.getString("depature_time"),
                         info.getString("travel_time")));

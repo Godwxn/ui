@@ -4,45 +4,79 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.moso.appotimentController">
    <children>
-      <Label layoutX="48.0" layoutY="74.0" text="Name">
+      <Label layoutX="70.0" layoutY="87.0" text="Name">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="48.0" layoutY="115.0" text="Blood Group">
+      <Label layoutX="375.0" layoutY="168.0" text="Blood Group">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="48.0" layoutY="155.0" text="Medical Histroy">
+      <Label layoutX="70.0" layoutY="168.0" text="Medical Histroy">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField id="name" fx:id="nameText" editable="false" layoutX="152.0" layoutY="70.0" />
-      <TextField id="patient Id" fx:id="idText" layoutX="152.0" layoutY="111.0" promptText="Enter Patient Id" />
-      <TextField id="condition" fx:id="condtionText" editable="false" layoutX="152.0" layoutY="151.0" />
-      <Label layoutX="316.0" layoutY="74.0" text="Age">
+      <TextField id="name" fx:id="nameText" layoutX="174.0" layoutY="83.0" promptText="Enter Patient Name" />
+      <TextField id="patient Id" fx:id="BloodText" layoutX="479.0" layoutY="164.0" prefHeight="26.0" prefWidth="158.0" promptText="Enter Patient Blood Group" />
+      <TextField id="condition" fx:id="MedicalHisText" layoutX="174.0" layoutY="164.0" promptText="Enter Medical Histroy" />
+      <Label layoutX="375.0" layoutY="87.0" text="Age">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField id="patient Id" fx:id="idText1" layoutX="420.0" layoutY="70.0" promptText="Enter Patient Id" />
-      <Label layoutX="316.0" layoutY="115.0" text="Phone Number">
+      <TextField id="patient Id" fx:id="AgeText" layoutX="479.0" layoutY="83.0" prefHeight="26.0" prefWidth="158.0" promptText="Enter Patient Age" />
+      <Label layoutX="375.0" layoutY="128.0" text="Phone Number">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField id="patient Id" fx:id="idText11" layoutX="420.0" layoutY="111.0" promptText="Enter Patient Id" />
-      <Button id="add" fx:id="addBtn" layoutX="420.0" layoutY="338.0" mnemonicParsing="false" onAction="#add" prefHeight="26.0" prefWidth="76.0" text="Add">
+      <TextField id="patient Id" fx:id="PhoneText" layoutX="479.0" layoutY="124.0" prefHeight="26.0" prefWidth="158.0" promptText="Enter Patient Phone no" />
+      <Button id="add" fx:id="addBtn" layoutX="442.0" layoutY="468.0" mnemonicParsing="false" onAction="#addPatient" prefHeight="26.0" prefWidth="76.0" text="Add">
          <graphic>
             <FontIcon iconLiteral="fas-book-medical" />
+         </graphic>
+      </Button>
+      <Line endX="519.3999633789062" endY="-1.52587890625E-5" layoutX="215.0" layoutY="240.0" startX="-194.1999969482422" startY="-1.52587890625E-5" />
+      <Label layoutX="63.0" layoutY="41.0" text="Add to Data">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="63.0" layoutY="266.0" text="Appointment">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="70.0" layoutY="128.0" text="Patient ID">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField id="patient Id" fx:id="idText" layoutX="174.0" layoutY="124.0" promptText="Enter Patient Id" />
+      <Label layoutX="63.0" layoutY="312.0" text="Patient ID">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField id="patient Id" fx:id="AppoiIdText" layoutX="167.0" layoutY="308.0" promptText="Enter Patient Id" />
+      <Label layoutX="63.0" layoutY="352.0" text="Symptoms">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField id="patient Id" fx:id="symptomsText" layoutX="167.0" layoutY="348.0" promptText="Enter Symptoms" />
+      <Button id="add" fx:id="MakeAppoiBtn" layoutX="540.0" layoutY="468.0" mnemonicParsing="false" onAction="#MakeAppointment" prefHeight="26.0" prefWidth="143.0" text="Make Appointment">
+         <graphic>
+            <FontIcon iconLiteral="fas-book-open" />
          </graphic>
       </Button>
    </children>

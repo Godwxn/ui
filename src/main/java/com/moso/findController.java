@@ -89,7 +89,7 @@ public class findController {
     public ObservableList<med> getmed(String[] arr) {
         ObservableList<med> medicine = FXCollections.observableArrayList();
         medicine.add(new med(arr[0]));
-        medicine.add(new med(arr[1]));
+        // medicine.add(new med(arr[1]));
         return medicine;
     }
 
