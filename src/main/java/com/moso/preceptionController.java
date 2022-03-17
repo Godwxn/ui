@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class preceptionController {
 
@@ -21,34 +23,40 @@ public class preceptionController {
         private URL location;
 
         @FXML
-        private TableColumn<?, ?> afternoonCol;
+        private TableColumn<med, String> afternoonCol;
 
         @FXML
         private TextField condtionText;
 
         @FXML
-        private TableColumn<?, ?> eveningCol;
-
-        @FXML
         private TextField idText;
-
-        @FXML
-        private TableColumn<?, ?> medNameCol;
-
-        @FXML
-        private TableView<?> medTableView;
-
-        @FXML
-        private TableColumn<?, ?> morningCol;
 
         @FXML
         private TextField nameText;
 
         @FXML
-        private TableColumn<?, ?> nightCol;
+        private TableColumn<med, String> eveningCol;
+
+        @FXML
+        private TableColumn<med, String> medNameCol;
+
+        @FXML
+        private TableView<med> medTableView;
+
+        @FXML
+        private TableColumn<med, String> morningCol;
+
+        @FXML
+        private TableColumn<med, String> nightCol;
 
         @FXML
         private TextField noofdaysText;
+
+        @FXML
+        private TextField medNameTextField;
+
+        @FXML
+        private TextField dosageTextField;
 
         @FXML
         private Button precBtn;
@@ -57,12 +65,47 @@ public class preceptionController {
         private Button searchBtn;
 
         @FXML
+        private Button addBtn;
+
+        @FXML
         void precribe(ActionEvent event) {
                 db db1 = new db();
-                db1.prescribe(nameText.getText(),
-                                idText.getText(),
-                                condtionText.getText(),
-                                noofdaysText.getText());
+                ObservableList<med> md = medTableView.getItems();
+                for (med med : md) {
+                        System.out.println(med.getMedName() +
+                                        med.getMorning() +
+                                        med.getEvening() +
+                                        med.getAfternoon() +
+                                        med.getNight());
+                }
+                // db1.prescribe(nameText.getText(),
+                // idText.getText(),
+                // condtionText.getText(),
+                // noofdaysText.getText());
+        }
+
+        @FXML
+        void add(ActionEvent event) {
+                String medname = medNameTextField.getText();
+                char[] dos = new char[4];
+                char[] age = new char[4];
+                dos = dosageTextField.getText().toUpperCase().toCharArray();
+                for (int i = 0; i < dos.length; i++) {
+                        age[i] = dos[i];
+                }
+                for (int i = dos.length; i < age.length; i++) {
+                        age[i] = ' ';
+                }
+                int[] dosages = new int[4];
+                if (age[0] == 'M')
+                        dosages[0] = 1;
+                if (age[0] == 'A' || age[1] == 'A')
+                        dosages[1] = 1;
+                if (age[0] == 'E' || age[1] == 'E' || age[2] == 'E')
+                        dosages[2] = 1;
+                if (age[0] == 'N' || age[1] == 'N' || age[2] == 'N' || age[3] == 'N')
+                        dosages[3] = 1;
+                medTableView.getItems().add(getmed(medname, dosages));
         }
 
         @FXML
@@ -94,7 +137,17 @@ public class preceptionController {
                 assert precBtn != null : "fx:id=\"precBtn\" was not injected: check your FXML file 'preception.fxml'.";
                 assert searchBtn != null
                                 : "fx:id=\"searchBtn\" was not injected: check your FXML file 'preception.fxml'.";
+                assert addBtn != null : "fx:id=\"addBtn\" was not injected: check your FXML file 'preception.fxml'.";
                 medTableView.setPlaceholder(new Label("Enter medicine data"));
+                medNameCol.setCellValueFactory(new PropertyValueFactory<med, String>("medName"));
+                morningCol.setCellValueFactory(new PropertyValueFactory<med, String>("morning"));
+                afternoonCol.setCellValueFactory(new PropertyValueFactory<med, String>("afternoon"));
+                eveningCol.setCellValueFactory(new PropertyValueFactory<med, String>("evening"));
+                nightCol.setCellValueFactory(new PropertyValueFactory<med, String>("night"));
+        }
+
+        public med getmed(String medname, int[] dosage) {
+                return new med(medname, dosage[0] + "", dosage[1] + "", dosage[2] + "", dosage[3] + "");
         }
 
 }
