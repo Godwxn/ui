@@ -34,6 +34,7 @@
           <TableColumn fx:id="flightNameCol" prefWidth="151.20001220703125" text="Flight Name" />
             <TableColumn fx:id="DepaturTimeCol" prefWidth="160.800048828125" text="Depature Time" />
             <TableColumn fx:id="TravelTimecol" prefWidth="130.40005493164062" text="Traveling Time" />
+            <TableColumn prefWidth="102.39995117187505" text="Price" />
         </columns>
       </TableView>
    </children>
