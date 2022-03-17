@@ -1,7 +1,23 @@
 package com.moso;
 
 public class airline {
-    String fight_number, Airline, depature_time, travel_time;
+    String fight_number, Airline, depature_time, travel_time, Price;
+
+    public String getPrice() {
+        return Price;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
+    }
+
+    public airline(String fight_number, String airline, String depature_time, String travel_time, String price) {
+        this.fight_number = fight_number;
+        Airline = airline;
+        this.depature_time = depature_time;
+        this.travel_time = travel_time;
+        Price = price;
+    }
 
     @Override
     public String toString() {

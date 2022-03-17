@@ -23,13 +23,13 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="54.0" layoutY="145.0" text="Condition">
+      <Label layoutX="54.0" layoutY="145.0" text="Medical Histroy">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <TextField id="name" fx:id="nameText" editable="false" layoutX="142.0" layoutY="60.0" />
-      <TextField id="patient Id" fx:id="idText" layoutX="142.0" layoutY="101.0" promptText="Enter Patient Id" />
-      <TextField id="condition" fx:id="condtionText" editable="false" layoutX="142.0" layoutY="141.0" />
+      <TextField id="name" fx:id="nameText" editable="false" layoutX="165.0" layoutY="60.0" />
+      <TextField id="patient Id" fx:id="idText" layoutX="165.0" layoutY="101.0" promptText="Enter Patient Id" />
+      <TextField id="condition" fx:id="condtionText" editable="false" layoutX="165.0" layoutY="141.0" />
       <Label layoutX="454.0" layoutY="63.0" text="No.Days">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -60,6 +60,11 @@
       <Button id="add" fx:id="addBtn" layoutX="601.0" layoutY="451.0" mnemonicParsing="false" onAction="#add" prefHeight="26.0" prefWidth="76.0" text="Add">
          <graphic>
             <FontIcon iconLiteral="fas-book-medical" />
+         </graphic>
+      </Button>
+      <Button id="prescribe" fx:id="searchBtn1" layoutX="333.0" layoutY="100.0" mnemonicParsing="false" onAction="#getPatient" prefHeight="26.0" prefWidth="94.0" text="Get Patient">
+         <graphic>
+            <FontIcon iconLiteral="fas-search" />
          </graphic>
       </Button>
    </children>

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.bson.Document;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class preceptionController {
+
+        db db1 = new db();
 
         @FXML
         private ResourceBundle resources;
@@ -65,11 +69,14 @@ public class preceptionController {
         private Button searchBtn;
 
         @FXML
+        private Button searchBtn1;
+
+        @FXML
         private Button addBtn;
 
         @FXML
         void precribe(ActionEvent event) {
-                db db1 = new db();
+
                 ObservableList<med> md = medTableView.getItems();
                 for (med med : md) {
                         System.out.println(med.getMedName() +
@@ -114,6 +121,13 @@ public class preceptionController {
         }
 
         @FXML
+        private void getPatient() {
+                Document patient = db1.getPatient(idText.getText());
+                nameText.setText(patient.getString("Name"));
+                condtionText.setText(patient.getString("medical_histroy"));
+        }
+
+        @FXML
         void initialize() {
                 assert afternoonCol != null
                                 : "fx:id=\"afternoonCol\" was not injected: check your FXML file 'preception.fxml'.";
@@ -144,6 +158,8 @@ public class preceptionController {
                 afternoonCol.setCellValueFactory(new PropertyValueFactory<med, String>("afternoon"));
                 eveningCol.setCellValueFactory(new PropertyValueFactory<med, String>("evening"));
                 nightCol.setCellValueFactory(new PropertyValueFactory<med, String>("night"));
+                // idText.textProperty().addListener((observable, oldValue, newValue) ->
+                // getPatient(newValue));
         }
 
         public med getmed(String medname, int[] dosage) {
