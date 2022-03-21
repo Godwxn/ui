@@ -49,8 +49,8 @@ public class appotimentController {
 
     @FXML
     void addPatient(ActionEvent event) {
-        db1.addPatients(nameText.getText(), idText.getText(), MedicalHisText.getText(),
-                PhoneText.getText(), AgeText.getText(), symptomsText.getText(), BloodText.getText());
+        db1.addPatients(nameText.getText(), idText.getText(),
+                MedicalHisText.getText(), PhoneText.getText(), AgeText.getText(), BloodText.getText());
 
     }
 
