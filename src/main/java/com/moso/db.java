@@ -119,7 +119,7 @@ public class db {
         return id;
     }
 
-    public void book(airline Airline, String noOfPassangers, int price) {
+    public Boolean book(airline Airline, String noOfPassangers, int price) {
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("alirline_data");
         MongoCollection<Document> collection = database.getCollection("booking");
@@ -132,8 +132,10 @@ public class db {
                     .append("No_of_Passanger", noOfPassangers)
                     .append("Total_Price", price));
             mongoClient.close();
+            return true;
         } catch (MongoException me) {
             System.err.println(me);
+            return false;
         }
     }
 

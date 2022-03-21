@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.moso.confirmController">
    <children>
       <Label id="lable" layoutX="56.0" layoutY="96.0" text="Flight" />
@@ -21,7 +20,7 @@
             <FontIcon iconLiteral="far-calendar-check" />
          </graphic>
       </Button>
-      <Button alignment="CENTER" graphicTextGap="5.0" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="75.0" text="Back">
+      <Button alignment="CENTER" graphicTextGap="5.0" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="75.0" text="Home">
          <graphic>
             <FontIcon iconLiteral="far-arrow-alt-circle-left" />
          </graphic>
@@ -30,5 +29,6 @@
       <Label fx:id="TotalPriceText" layoutX="567.0" layoutY="153.0" prefHeight="18.0" prefWidth="100.0" />
       <Label id="lable" layoutX="56.0" layoutY="153.0" text="No of Passanger" />
       <Label fx:id="NoOfPassanger" layoutX="158.0" layoutY="153.0" prefHeight="18.0" prefWidth="100.0" />
+      <Label fx:id="ConfirmLabel" layoutX="149.0" layoutY="243.0" prefWidth="334.0" />
    </children>
 </AnchorPane>

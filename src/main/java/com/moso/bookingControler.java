@@ -41,7 +41,6 @@ public class bookingControler {
 
         @FXML
         public void next(ActionEvent event) throws IOException {
-                // TODO
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("confirm.fxml"));
                 Parent confirmscene = loader.load();
@@ -58,8 +57,15 @@ public class bookingControler {
         }
 
         @FXML
-        private void back() throws IOException {
-                App.setRoot("airline");
+        private void back(ActionEvent event) throws IOException {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("airline.fxml"));
+                Parent homeParent = loader.load();
+
+                Scene homeScene = new Scene(homeParent);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(homeScene);
+                window.show();
         }
 
         public void initData(airline Airline) {

@@ -3,9 +3,15 @@ package com.moso;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class confirmController {
 
@@ -20,6 +26,9 @@ public class confirmController {
 
     @FXML
     private Label DepatureTimeLable;
+
+    @FXML
+    private Label ConfirmLabel;
 
     @FXML
     private Label FlightDurationLable;
@@ -38,14 +47,23 @@ public class confirmController {
 
     @FXML
     void back(ActionEvent event) throws IOException {
-        App.setRoot("airline");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("airline.fxml"));
+        Parent homeParent = loader.load();
+
+        Scene homeScene = new Scene(homeParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(homeScene);
+        window.show();
     }
 
     @FXML
     void book(ActionEvent event) {
-        // TODO
         db db = new db();
-        db.book(air, NoOfPassanger.getText(), totalprice);
+        if (db.book(air, NoOfPassanger.getText(), totalprice))
+            ConfirmLabel.setText("Booked Successfully");
+        else
+            ConfirmLabel.setText("Booking Failed,Try again later");
     }
 
     public void initData(airline Airline, String noOfPassanger) {
