@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.bson.Document;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class preceptionController {
+
+        db db1 = new db();
 
         @FXML
         private ResourceBundle resources;
@@ -65,11 +69,14 @@ public class preceptionController {
         private Button searchBtn;
 
         @FXML
+        private Button searchBtn1;
+
+        @FXML
         private Button addBtn;
 
         @FXML
         void precribe(ActionEvent event) {
-                db db1 = new db();
+
                 ObservableList<med> md = medTableView.getItems();
                 for (med med : md) {
                         System.out.println(med.getMedName() +
@@ -111,6 +118,14 @@ public class preceptionController {
         @FXML
         void switchToFind(ActionEvent event) throws IOException {
                 App.setRoot("find");
+        }
+
+        @FXML
+        private void getPatient() {
+                Document patient = db1.getPatient(idText.getText());
+                System.out.println(patient.toJson());
+                nameText.setText(patient.getString("name"));
+                condtionText.setText(patient.getString("medical_histroy"));
         }
 
         @FXML
