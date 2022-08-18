@@ -6,6 +6,7 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
@@ -21,6 +22,11 @@ public class tesdb {
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("patient_record");
             MongoCollection<Document> collection = database.getCollection("patient");
+            MongoCursor<Document> cursor = collection.find().iterator();
+            while (cursor.hasNext()) {
+                Document c = cursor.next();
+                System.out.println(c.toJson());
+            }
             Bson query = eq("id", "41");
             Bson updates = Updates.combine(Updates.set("Syntoms", "feaver,cold"));
             UpdateOptions options = new UpdateOptions().upsert(true);

@@ -8,22 +8,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.moso.findController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.moso.findController">
    <children>
-      <TextField id="Patient-name" fx:id="nameText" layoutX="135.0" layoutY="57.0" promptText="Patient name" />
-      <Label layoutX="82.0" layoutY="61.0" text="Name" />
-      <TextField id="Patient-id" fx:id="idText" layoutX="378.0" layoutY="56.0" prefHeight="26.0" prefWidth="42.0" promptText="id" />
-      <Label layoutX="356.0" layoutY="60.0" text="Id" />
-      <TableView fx:id="medTableView" layoutX="40.0" layoutY="128.0" prefHeight="248.0" prefWidth="524.0">
+      <TextField id="Patient-name" fx:id="nameText" layoutX="144.0" layoutY="77.0" promptText="Patient name" />
+      <Label layoutX="70.0" layoutY="81.0" text="Name" />
+      <TextField id="Patient-id" fx:id="idText" layoutX="380.0" layoutY="77.0" prefHeight="26.0" prefWidth="42.0" promptText="id" />
+      <Label layoutX="358.0" layoutY="81.0" text="Id" />
+      <TableView fx:id="medTableView" layoutX="45.0" layoutY="173.0" prefHeight="332.0" prefWidth="666.0">
         <columns>
-          <TableColumn id="medName" fx:id="medNameCol" prefWidth="214.4000244140625" text="Medicine" />
-          <TableColumn id="morning" fx:id="morningCol" minWidth="0.0" prefWidth="88.0" text="Morning" />
-            <TableColumn id="afternoon" fx:id="afternoonCol" prefWidth="79.20001220703125" text="Afternoon" />
-            <TableColumn id="evening" fx:id="eveningCol" prefWidth="70.39996337890625" text="Evening" />
-            <TableColumn id="night" fx:id="nightCol" prefWidth="71.2000732421875" text="Night" />
+          <TableColumn id="medName" fx:id="medNameCol" prefWidth="202.4000244140625" text="Medicine" />
+          <TableColumn id="morning" fx:id="morningCol" minWidth="0.0" prefWidth="124.0" text="Morning" />
+            <TableColumn id="afternoon" fx:id="afternoonCol" prefWidth="110.39996337890625" text="Afternoon" />
+            <TableColumn id="evening" fx:id="eveningCol" prefWidth="101.60003662109375" text="Evening" />
+            <TableColumn id="night" fx:id="nightCol" prefWidth="131.20001220703125" text="Night" />
         </columns>
       </TableView>
-      <Button id="Search" fx:id="searchBtn" layoutX="450.0" layoutY="57.0" mnemonicParsing="false" onAction="#search" text="Search">
+      <Button id="Search" fx:id="searchBtn" layoutX="459.0" layoutY="78.0" mnemonicParsing="false" onAction="#search" text="Search">
          <graphic>
             <FontIcon iconLiteral="fas-search" />
          </graphic>
@@ -33,5 +33,7 @@
             <FontIcon iconLiteral="fas-arrow-left" />
          </graphic>
       </Button>
+      <TextField id="Patient-name" fx:id="daysText" editable="false" layoutX="144.0" layoutY="122.0" prefHeight="26.0" prefWidth="68.0" />
+      <Label layoutX="70.0" layoutY="126.0" text="No of Days" />
    </children>
 </AnchorPane>

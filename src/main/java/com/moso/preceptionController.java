@@ -123,7 +123,8 @@ public class preceptionController {
         @FXML
         private void getPatient() {
                 Document patient = db1.getPatient(idText.getText());
-                nameText.setText(patient.getString("Name"));
+                System.out.println(patient.toJson());
+                nameText.setText(patient.getString("name"));
                 condtionText.setText(patient.getString("medical_histroy"));
         }
 
@@ -158,8 +159,6 @@ public class preceptionController {
                 afternoonCol.setCellValueFactory(new PropertyValueFactory<med, String>("afternoon"));
                 eveningCol.setCellValueFactory(new PropertyValueFactory<med, String>("evening"));
                 nightCol.setCellValueFactory(new PropertyValueFactory<med, String>("night"));
-                // idText.textProperty().addListener((observable, oldValue, newValue) ->
-                // getPatient(newValue));
         }
 
         public med getmed(String medname, int[] dosage) {

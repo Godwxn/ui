@@ -23,7 +23,7 @@ public class findController {
     private URL location;
 
     @FXML
-    private TableColumn<?, ?> afternoonCol;
+    private TableColumn<med, String> afternoonCol;
 
     @FXML
     private Button backBtn;
@@ -45,6 +45,9 @@ public class findController {
 
     @FXML
     private TextField nameText;
+
+    @FXML
+    private TextField daysText;
 
     @FXML
     private TableColumn<?, ?> nightCol;
@@ -79,6 +82,7 @@ public class findController {
         assert medTableView != null : "fx:id=\"medTableView\" was not injected: check your FXML file 'find.fxml'.";
         assert morningCol != null : "fx:id=\"morningCol\" was not injected: check your FXML file 'find.fxml'.";
         assert nameText != null : "fx:id=\"nameText\" was not injected: check your FXML file 'find.fxml'.";
+        assert daysText != null : "fx:id=\"nameText\" was not injected: check your FXML file 'find.fxml'.";
         assert nightCol != null : "fx:id=\"nightCol\" was not injected: check your FXML file 'find.fxml'.";
         assert searchBtn != null : "fx:id=\"searchBtn\" was not injected: check your FXML file 'find.fxml'.";
         medTableView.setPlaceholder(new Label("No Medicine record display"));

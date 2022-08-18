@@ -41,9 +41,6 @@ public class airlineController {
     private TextField depCity;
 
     @FXML
-    private TextField depDate;
-
-    @FXML
     private TextField desCity;
 
     @FXML
@@ -87,16 +84,14 @@ public class airlineController {
     private void search() {
         db db1 = new db();
         MongoCursor<Document> cursor = db1.findAir(depCity.getText(), desCity.getText());
+        flightTableView.getItems().clear();
         try {
             while (cursor.hasNext()) {
                 Document info = cursor.next();
-                System.out.println(info.get("Price", Document.class).getString("First"));
-                System.out.println(info.getString("fight_number") + info.getString("Airline") +
-                        info.getString("depature_time") +
-                        info.getString("travel_time"));
                 flightTableView.getItems().add(getairline(info.getString("fight_number"), info.getString("Airline"),
                         info.getString("depature_time"),
-                        info.getString("travel_time"), info.get("Price", Document.class).getString("First")));
+                        info.getString("travel_time"),
+                        info.get("Price", Document.class).getString(cabClass.getValue())));
             }
         } finally {
             cursor.close();
@@ -111,7 +106,6 @@ public class airlineController {
         assert bookbtn != null : "fx:id=\"bookbtn\" was not injected: check your FXML file 'airline.fxml'.";
         assert cabClass != null : "fx:id=\"cabClass\" was not injected: check your FXML file 'airline.fxml'.";
         assert depCity != null : "fx:id=\"depCity\" was not injected: check your FXML file 'airline.fxml'.";
-        assert depDate != null : "fx:id=\"depDate\" was not injected: check your FXML file 'airline.fxml'.";
         assert desCity != null : "fx:id=\"desCity\" was not injected: check your FXML file 'airline.fxml'.";
         assert flightNameCol != null : "fx:id=\"flightNameCol\" was not injected: check your FXML file 'airline.fxml'.";
         assert flightNumberCol != null
@@ -120,11 +114,12 @@ public class airlineController {
                 : "fx:id=\"flightTableView\" was not injected: check your FXML file 'airline.fxml'.";
         assert searchBtn != null : "fx:id=\"searchBtn\" was not injected: check your FXML file 'airline.fxml'.";
         flightTableView.setPlaceholder(new Label("No flight to display"));
-        cabClass.getItems().addAll("Economy", "First Class", "Buissness Class");
+        cabClass.getItems().addAll("Economy", "First", "Buissness");
         flightNameCol.setCellValueFactory(new PropertyValueFactory<airline, String>("Airline"));
         flightNumberCol.setCellValueFactory(new PropertyValueFactory<airline, String>("fight_number"));
         DepaturTimeCol.setCellValueFactory(new PropertyValueFactory<airline, String>("depature_time"));
         TravelTimecol.setCellValueFactory(new PropertyValueFactory<airline, String>("travel_time"));
+        PriceCol.setCellValueFactory(new PropertyValueFactory<airline, String>("Price"));
     }
 
     public airline getairline(String fight_no, String Airline, String dep_time, String tra_time, String Price) {

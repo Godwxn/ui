@@ -39,20 +39,7 @@ public class db {
         }
     }
 
-    public String[] find(String Title) {
-        String[] result = new String[2];
-        MongoClient mongoClient = MongoClients.create(uri);
-        MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-        MongoCollection<Document> collection = database.getCollection("movies");
-        Document movie = collection.find(eq("title", Title)).first();
-        result[0] = movie.getString("title");
-        result[1] = movie.getString("plot");
-        return result;
-
-    }
-
-    public void addPatients(String name, String id, String medicalhis, String phone_no, String age,
-            String Syntoms, String BloodGrp) {
+    public void addPatients(String name, String id, String medicalhis, String phone_no, String age, String BloodGrp) {
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("patient_record");
             MongoCollection<Document> collection = database.getCollection("patient");
@@ -99,12 +86,13 @@ public class db {
     public Document getPatient(String id) {
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("patient_record");
-            // Bson projectionFields = Projections.fields(
-            // Projections.include("Nmae", "id", "Synptoms", "medical_histroy"),
-            // Projections.excludeId());
+            Bson projectionFields = Projections.fields(
+                    Projections.include("name", "id", "symptoms", "medical_histroy"),
+                    Projections.excludeId());
             MongoCollection<Document> collection = database.getCollection("patient");
             try {
-                Document patient = collection.find(eq("id", id)).first();
+                Document patient = collection.find(eq("id", id)).projection(projectionFields).first();
+                System.err.println(patient);
                 return patient;
             } catch (MongoException me) {
                 System.err.println(me.getMessage());
@@ -131,6 +119,26 @@ public class db {
         return id;
     }
 
+    public Boolean book(airline Airline, String noOfPassangers, int price) {
+        MongoClient mongoClient = MongoClients.create(uri);
+        MongoDatabase database = mongoClient.getDatabase("alirline_data");
+        MongoCollection<Document> collection = database.getCollection("booking");
+        try {
+            collection.insertOne(new Document()
+                    .append("_id", new ObjectId())
+                    .append("Airline", Airline.getAirline())
+                    .append("Flight_no", Airline.getFight_number())
+                    .append("Dep_time", Airline.getDepature_time())
+                    .append("No_of_Passanger", noOfPassangers)
+                    .append("Total_Price", price));
+            mongoClient.close();
+            return true;
+        } catch (MongoException me) {
+            System.err.println(me);
+            return false;
+        }
+    }
+
     public MongoCursor<Document> findAir(String depat, String dest) {
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("alirline_data");
@@ -143,22 +151,6 @@ public class db {
                     .projection(projectionFields)
                     .sort(Sorts.ascending("Airline")).iterator();
             return cursor;
-        }
-    }
-
-    public boolean update(String Title, String genres) {
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
-            MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-            MongoCollection<Document> collection = database.getCollection("movies");
-            try {
-                collection.insertOne(new Document()
-                        .append("_id", new ObjectId())
-                        .append("title", Title)
-                        .append("genres", genres));
-                return true;
-            } catch (MongoException me) {
-                return false;
-            }
         }
     }
 }
